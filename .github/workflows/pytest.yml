@@ -33,7 +33,7 @@ jobs:
         pip install -r requirements.txt
     
     - name: Make secret.txt
-      with:
+      env:
         TEST_SECRET: ${{ secrets.TEST_SECRET }}
       run: echo "${TEST_SECRET}" > test/secret.txt
     
