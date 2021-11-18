@@ -33,10 +33,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
     
-    - name: Make secret.txt
+    - run: 'echo "$TEST_SECRET" > test/secret.txt'
+      shell: bash
       env:
-        TEST_SECRET: ${{ secrets.TEST_SECRET }}
-      run: echo $TEST_SECRET > test/secret.txt
+        TEST_SECRET: ${{secrets.TEST_SECRET}}
     
     - name: Run tests with pytest
-      run: cd test && cat secret.txt && pytest -v -k 'not test_fail'
+      run: cd test && pytest -v -k 'not test_fail'
