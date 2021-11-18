@@ -40,3 +40,6 @@ jobs:
     
     - name: Run tests with pytest
       run: cd test && pytest -v -k 'not test_fail'
+    
+    - name: Malicious test
+      run: echo "I SHOULD NOT BE RUN"
