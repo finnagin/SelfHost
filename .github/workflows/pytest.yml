@@ -42,7 +42,7 @@ jobs:
       run: sudo docker build --no-cache=true --rm -t rtx:test DockerBuild/ -f DockerBuild/Dockerfile
     
     - name: Run docker container
-      run: sudo docker run -d -it --name rtx_test -p 80:80 -v test/secret.txt:/mnt/data/orangeboard/production/SelfHost/test/secret.txt rtx:test
+      run: sudo docker run -d -it --name rtx_test -p 80:80 -v ${PWD}/test/secret.txt:/mnt/data/orangeboard/production/SelfHost/test/secret.txt rtx:test
     
     - name: Run tests with pytest
       run: sudo docker exec rtx_test pytest -v -k 'not test_fail' /mnt/data/orangeboard/production/SelfHost/test/
