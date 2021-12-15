@@ -23,20 +23,26 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Setup Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: "3.7"
+#     - name: Setup Python
+#       uses: actions/setup-python@v2
+#       with:
+#         python-version: "3.7"
 
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+#     - name: Install dependencies
+#       run: |
+#         python -m pip install --upgrade pip
+#         pip install -r requirements.txt
     
     - run: 'echo "$TEST_SECRET" > test/secret.txt'
       shell: bash
       env:
         TEST_SECRET: ${{secrets.TEST_SECRET}}
     
+    - name: Build docker image 
+      run: sudo docker build --no-cache=true --rm -t rtx:test DockerBuild/ -f DockerBuild/Dockerfile
+    
+    - name: Run docker container
+      run: sudo docker run -d -it --name rtx_test -p 80:80 -v test/secret.txt:/mnt/data/orangeboard/production/SelfHost/test/secret.txt rtx:test
+    
     - name: Run tests with pytest
-      run: cd test && pytest -v -k 'not test_fail'
+      run: sudo docker exec rtx_test pytest -v -k 'not test_fail' /mnt/data/orangeboard/production/SelfHost/test/
