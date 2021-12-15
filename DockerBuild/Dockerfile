@@ -1,11 +1,15 @@
 FROM ubuntu:20.04
 
+# suppress debconf error messages:
+ARG DEBIAN_FRONTEND=noninteractive
+
 # add user "rt" and give sudo privilege:
 RUN useradd rt -m -s /bin/bash
 
 # install git and sudo
 RUN apt-get update
 RUN apt-get update  # running this twice seems to work around a weird 404 error
+RUN apt-get install -y apt-utils
 RUN apt-get install -y git sudo curl rsync
 
 # give sudo privilege to user rt:
@@ -20,6 +24,9 @@ RUN echo "StrictHostKeyChecking no" > /home/rt/.ssh/config
 RUN echo "UserKnownHostsFile /dev/null" >> /home/rt/.ssh/config
 RUN chown -R rt.rt /home/rt/.ssh
 RUN chmod -R 700 /home/rt/.ssh
+
+# install apache2
+RUN apt-get update && apt-get install -yq apache2
 
 # clone repo
 RUN mkdir -p /mnt/data/orangeboard/production
