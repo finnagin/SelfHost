@@ -35,9 +35,9 @@ jobs:
     
     - name: Clean up any left over docker containers & images
       run: |
-        sudo docker stop $(docker ps -aq)
-        sudo docker rm $(docker ps -aq)
-        sudo docker rmi $(docker images -q)
+        sudo docker stop $(sudo docker ps -aq)
+        sudo docker rm $(sudo docker ps -aq)
+        sudo docker rmi $(sudo docker images -q)
     
     - run: 'echo "$TEST_SECRET" > test/secret.txt'
       shell: bash
@@ -55,6 +55,6 @@ jobs:
     
     - name: Remove and delete all docker containers & images
       run: |
-        sudo docker stop $(docker ps -aq)
-        sudo docker rm $(docker ps -aq)
-        sudo docker rmi $(docker images -q)
+        sudo docker stop $(sudo docker ps -aq)
+        sudo docker rm $(sudo docker ps -aq)
+        sudo docker rmi $(sudo docker images -q)
