@@ -33,6 +33,12 @@ jobs:
 #         python -m pip install --upgrade pip
 #         pip install -r requirements.txt
     
+    - name: Clean up any left over docker containers & images
+      run: |
+        sudo docker stop $(docker ps -aq)
+        sudo docker rm $(docker ps -aq)
+        sudo docker rmi $(docker images -q)
+    
     - run: 'echo "$TEST_SECRET" > test/secret.txt'
       shell: bash
       env:
@@ -46,3 +52,9 @@ jobs:
     
     - name: Run tests with pytest
       run: sudo docker exec rtx_test bash -c "cd /mnt/data/orangeboard/production/SelfHost/test/ && pytest -v -k 'not test_fail'"
+    
+    - name: Remove and delete all docker containers & images
+      run: |
+        sudo docker stop $(docker ps -aq)
+        sudo docker rm $(docker ps -aq)
+        sudo docker rmi $(docker images -q)
