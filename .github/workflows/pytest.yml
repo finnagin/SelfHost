@@ -7,7 +7,7 @@ on:
 jobs:
   analyze:
     name: Analyze
-    runs-on: self-hosted
+    runs-on: [self-hosted, arax]
     environment: TestEnv
     permissions:
       actions: read
