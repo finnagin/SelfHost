@@ -34,6 +34,7 @@ jobs:
 #         pip install -r requirements.txt
     
     - name: Clean up any left over docker containers & images
+      continue-on-error: true
       run: |
         sudo docker stop $(sudo docker ps -aq)
         sudo docker rm $(sudo docker ps -aq)
@@ -54,6 +55,7 @@ jobs:
       run: sudo docker exec rtx_test bash -c "cd /mnt/data/orangeboard/production/SelfHost/test/ && pytest -v -k 'not test_fail'"
     
     - name: Remove and delete all docker containers & images
+      continue-on-error: true
       run: |
         sudo docker stop $(sudo docker ps -aq)
         sudo docker rm $(sudo docker ps -aq)
