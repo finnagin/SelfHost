@@ -33,12 +33,17 @@ jobs:
 #         python -m pip install --upgrade pip
 #         pip install -r requirements.txt
     
-    - name: Clean up any left over docker containers & images
+    - name: Stop any running containers
       continue-on-error: true
-      run: |
-        sudo docker stop $(sudo docker ps -aq)
-        sudo docker rm $(sudo docker ps -aq)
-        sudo docker rmi $(sudo docker images -q)
+      run: sudo docker stop $(sudo docker ps -aq)
+    
+    - name: Clean up any left over containers
+      continue-on-error: true
+      run: sudo docker rm $(sudo docker ps -aq)
+        
+    - name: Clean up any left over images
+      continue-on-error: true
+      run: sudo docker rmi $(sudo docker images -q)
     
     - run: 'echo "$TEST_SECRET" > test/secret.txt'
       shell: bash
