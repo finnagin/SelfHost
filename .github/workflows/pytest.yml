@@ -1,13 +1,14 @@
 name: "Pytest"
 
 on:
+  schedule:
+    - cron: '30 22 * * 2,6'
   push:
     branches: [ main ]
 
 jobs:
   analyze:
     name: Analyze
-    runs-on: [ubuntu]
     environment: TestEnv
     permissions:
       actions: read
