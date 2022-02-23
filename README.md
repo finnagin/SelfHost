@@ -1,5 +1,5 @@
 # SelfHost
 
-Test repo for testing stuff
+Test repo for testing
 
 
