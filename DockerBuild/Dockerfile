@@ -41,4 +41,4 @@ RUN apt-get install -y software-properties-common
 RUN add-apt-repository -y ppa:deadsnakes/ppa
 RUN apt-get update && apt-get install -y python3.7 python3.7-dev python3.7-venv
 RUN rm /usr/bin/python3 && ln -s /usr/bin/python3.7 /usr/bin/python3
-RUN su rt && cd /mnt/data/orangeboard/production/SelfHost && python3.7 -m pip install -r requirements.txt
+RUN su rt && cd /mnt/data/orangeboard/production/SelfHost && python3.7 -m pip install -r requirements.txt && python3.7 -m pip install markupsafe==2.0.1 
